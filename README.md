@@ -2,6 +2,13 @@
 
 This SSH Honeypot is based on the work from https://github.com/droberson/ssh-honeypot and https://github.com/random-robbie/docker-ssh-honey.
 
+The image size is around 8MB.
+
+```bash
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+giftkugel/ssh-honeypot               latest              3f9d9bdc6ff1        15 minutes ago      7.92MB
+```
+
 ## Note
 
 Change the Port of your SSH server from 22 to something else.
