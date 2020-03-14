@@ -1,53 +1,17 @@
-# docker-ssh-honey
-SSH Honey pot for docker
-
-Using Alpine as base image now to take container from 1GB to around 118MB
-
-Using https://github.com/droberson/ssh-honeypot
-
-FROM THE README
-
 # SSH Honeypot
 
-This program listens for incoming ssh connections and logs the ip
-address, username, and password used. This was written to gather
-rudimentary intelligence on brute force attacks.
+This SSH Honeypot is based on the work from https://github.com/droberson/ssh-honeypot and https://github.com/random-robbie/docker-ssh-honey.
 
+## Note
 
-## Syslog facilities
+Change the Port of your SSH server from 22 to something else.
 
-As of version 0.0.5, this supports logging to syslog. This feature
-is toggled with the -s flag. It is up to you to configure your
-syslog facilities appropriately. This logs to LOG_AUTHPRIV which is
-typically /var/log/auth.log. You may want to modify this to use
-one of the LOG_LOCAL facilities if you are worried about password
-leakage.
+## Start
 
-This was implemented to aggregate the data from several hosts into
-a centralized spot.
+Maybe you need to start the docker container as root or a privileged user to bind port 22.
 
-## Dropping privileges
+```bash
+docker run -it -p 22:22 giftkugel/ssh-honeypot:latest
+```
 
-As of version 0.0.8, you can drop root privileges of this program
-after binding to a privileged port. You can now run this as _nobody_
-on port 22 for example instead of root, but have to initially start it
-as root:
-
-	$ sudo bin/ssh-honeypot -p 22 -u nobody
-	
-Beware that this chowns the logfile to the user specified as well.
-
-## Changing the Banner
-
-List available banners
-
-    $ bin/ssh-honeypot -b
-
-Set banner string
-
-    $ bin/ssh-honeypot -b "my banner string"
-
-Set banner by index
-
-    $ bin/ssh-honeypot -i <banner index>
-
+The logs are written to stdout and `/var/logs/ssh-honeypot.log`. Mount the file as volume to keep it outside the Docker container.
