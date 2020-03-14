@@ -36,9 +36,5 @@ The logs will look like
 [Sat Mar 14 21:14:51 2020] 172.17.0.1 test 12345
 [Sat Mar 14 21:14:53 2020] 172.17.0.1 test test
 [Sat Mar 14 21:14:54 2020] 172.17.0.1 test god
-[Sat Mar 14 21:14:56 2020] 172.17.0.1 test dede
-[Sat Mar 14 21:14:57 2020] 172.17.0.1 test eas
-[Sat Mar 14 21:14:58 2020] 172.17.0.1 test 124
-[Sat Mar 14 21:14:59 2020] 172.17.0.1 test 2121
-[Sat Mar 14 21:15:00 2020] 172.17.0.1 test dede
+[Sat Mar 14 21:14:56 2020] 172.17.0.1 test awesome
 ```
