@@ -14,4 +14,6 @@ Maybe you need to start the docker container as root or a privileged user to bin
 docker run -it -p 22:22 giftkugel/ssh-honeypot:latest
 ```
 
-The logs are written to stdout and `/var/logs/ssh-honeypot.log`. Mount the file as volume to keep it outside the Docker container.
+The logs are written to stdout and `/var/logs/ssh-honeypot.log`.
+
+Mount the file as volume to keep it outside the Docker container.
