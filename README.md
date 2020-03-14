@@ -1,53 +1,40 @@
-# docker-ssh-honey
-SSH Honey pot for docker
-
-Using Alpine as base image now to take container from 1GB to around 118MB
-
-Using https://github.com/droberson/ssh-honeypot
-
-FROM THE README
-
 # SSH Honeypot
 
-This program listens for incoming ssh connections and logs the ip
-address, username, and password used. This was written to gather
-rudimentary intelligence on brute force attacks.
+This SSH Honeypot is based on the work from https://github.com/droberson/ssh-honeypot and https://github.com/random-robbie/docker-ssh-honey.
+
+The image size is around 8MB.
+
+```bash
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+giftkugel/ssh-honeypot               latest              3f9d9bdc6ff1        15 minutes ago      7.92MB
+```
+
+## Note
+
+Change the Port of your SSH server from 22 to something else.
+
+## Start
+
+Maybe you need to start the docker container as root or a privileged user to bind port 22.
+
+```bash
+docker run -it -p 22:22 giftkugel/ssh-honeypot:latest
+```
+
+The logs are written to stdout and `/var/logs/ssh-honeypot.log`.
+
+Mount the file as volume to keep it outside the Docker container.
 
 
-## Syslog facilities
+## Logs
 
-As of version 0.0.5, this supports logging to syslog. This feature
-is toggled with the -s flag. It is up to you to configure your
-syslog facilities appropriately. This logs to LOG_AUTHPRIV which is
-typically /var/log/auth.log. You may want to modify this to use
-one of the LOG_LOCAL facilities if you are worried about password
-leakage.
+The logs will look like
 
-This was implemented to aggregate the data from several hosts into
-a centralized spot.
-
-## Dropping privileges
-
-As of version 0.0.8, you can drop root privileges of this program
-after binding to a privileged port. You can now run this as _nobody_
-on port 22 for example instead of root, but have to initially start it
-as root:
-
-	$ sudo bin/ssh-honeypot -p 22 -u nobody
-	
-Beware that this chowns the logfile to the user specified as well.
-
-## Changing the Banner
-
-List available banners
-
-    $ bin/ssh-honeypot -b
-
-Set banner string
-
-    $ bin/ssh-honeypot -b "my banner string"
-
-Set banner by index
-
-    $ bin/ssh-honeypot -i <banner index>
-
+```bash
+[Sat Mar 14 21:14:38 2020] ssh-honeypot 0.1.0 by Daniel Roberson started on port 22. PID 6
+[Sat Mar 14 21:14:48 2020] Session:  SSH-2.0-MoTTY_Release_0.36|SSH-2.0-OpenSSH_5.9p1 Debian-5ubuntu1.4|(null)|aes256-ctr|aes256-ctr|hmac-sha2-256|hmac-sha2-256
+[Sat Mar 14 21:14:51 2020] 172.17.0.1 test 12345
+[Sat Mar 14 21:14:53 2020] 172.17.0.1 test test
+[Sat Mar 14 21:14:54 2020] 172.17.0.1 test god
+[Sat Mar 14 21:14:56 2020] 172.17.0.1 test awesome
+```
